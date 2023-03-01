@@ -1,7 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import 'react-calendar-timeline/lib/Timeline.css'
-import Timeline from 'react-calendar-timeline'
+import Timeline, {
+  TimelineMarkers,
+  CustomMarker,
+  TodayMarker,
+  CursorMarker
+} from 'react-calendar-timeline'
 import moment from 'moment'
 
 
@@ -60,7 +65,25 @@ function App() {
          Height={50}
 
 
-    />
+    >
+        <TimelineMarkers>
+    <TodayMarker />
+    <CustomMarker date={moment()} />
+    <CustomMarker date={moment().add(24, 'hour')}>
+      {/* custom renderer for this marker */}
+      {({ styles, date }) => {
+        const customStyles = {
+          ...styles,
+          backgroundColor: 'deeppink',
+          width: '4px'
+        }
+        return <div style={customStyles}  />
+      }}
+    </CustomMarker>
+    <CursorMarker />
+  </TimelineMarkers>
+
+      </Timeline>
 
     </div>
   );

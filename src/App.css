@@ -1,5 +1,10 @@
+
+body{
+  padding: 3rem;
+}
 .App {
   text-align: center;
+  margin-top: 5rem;
 }
 
 .App-logo {
@@ -36,3 +41,19 @@
     transform: rotate(360deg);
   }
 }
+.rct-calendar-header{
+  background-color: azure;
+}
+
+.react-calendar-timeline .rct-header-root{
+  background-color: #fff !important;
+}
+.react-calendar-timeline .rct-dateHeader-primary {
+  background-color: initial;
+  border-left: 1px dashed #bbb !important;
+  border-right: 1px dashed #bbb !important;
+  color: #920b0b !important;
+  text-align: center !important;
+}
+
+

@@ -24,7 +24,7 @@ const DTimeline = () => {
       { id: 1, title: `reservations en attente` , enattente: true    ,rightTitle: null, height:200 ,},
       { id: 2, title: 'reservations confirmées' , confirmées: true    ,rightTitle: null,  height:200 , },
       { id: 3, title: 'reservations en course de dispatch ' ,   dispatch: true    ,   rightTitle: null ,  height:200},
-      { id: 4, title: 'raid dj' ,    rightTitle: true },
+      { id: 4, title: 'raid dj' ,    rightTitle: true ,img:img },
        { id: 5, title: 'raid dj' ,    rightTitle: false,img:img , wallet: 1000},
         { id: 6, title: 'walide ' ,    rightTitle: true,img:img , wallet: 634},
        { id: 7, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000}, 
@@ -209,6 +209,7 @@ const DTimeline = () => {
   return (
     <div>
                 <Timeline
+                style={{textAlign:"center"}}
          traditionalZoom={false}
          resizeDetector={containerResizeDetector}
          

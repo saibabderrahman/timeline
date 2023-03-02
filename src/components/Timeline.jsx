@@ -24,7 +24,7 @@ const DTimeline = () => {
       { id: 1, title: `reservations en attente` , enattente: true    ,rightTitle: null, height:200 ,},
       { id: 2, title: 'reservations confirmées' , confirmées: true    ,rightTitle: null,  height:200 , },
       { id: 3, title: 'reservations en course de dispatch ' ,   dispatch: true    ,   rightTitle: null ,  height:200},
-      { id: 4, title: 'raid dj' ,    rightTitle: true ,img:img },
+      { id: 4, title: 'raid dj' ,    rightTitle: true ,img:img,wallet: 2000 },
        { id: 5, title: 'raid dj' ,    rightTitle: false,img:img , wallet: 1000},
         { id: 6, title: 'walide ' ,    rightTitle: true,img:img , wallet: 634},
        { id: 7, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000}, 
@@ -95,7 +95,7 @@ const DTimeline = () => {
           onDoubleClick: () => { console.log('You clicked double!') },
           className: 'weekend',
           style: {
-            background: 'green'
+            background: '#d87981'
           }
         }
       },
@@ -112,7 +112,7 @@ const DTimeline = () => {
           onDoubleClick: () => { console.log('You clicked double!') },
           className: 'weekend',
           style: {
-            background: 'blue'
+            background: '#5d90c8            '
           }
         }
       },
@@ -129,7 +129,7 @@ const DTimeline = () => {
           onDoubleClick: () => { console.log('You clicked double!') },
           className: 'weekend',
           style: {
-            background: 'black'
+            background: '#6cc47b            '
           }
         }
       },
@@ -146,7 +146,7 @@ const DTimeline = () => {
           onDoubleClick: () => { console.log('You clicked double!') },
           className: 'weekend',
           style: {
-            background: '#e29740'
+            background: '#f9c56d'
           }
         }
       },
@@ -163,7 +163,7 @@ const DTimeline = () => {
           onDoubleClick: () => { console.log('You clicked double!') },
           className: 'weekend',
           style: {
-            background: '#e29740'
+            background: '#f9c56d '
           }
         }
       },
@@ -180,7 +180,7 @@ const DTimeline = () => {
           onDoubleClick: () => { console.log('You clicked double!') },
           className: 'weekend',
           style: {
-            background: '#358146'
+            background: '#8ece96'
           }
         }
       },
@@ -197,7 +197,7 @@ const DTimeline = () => {
           onDoubleClick: () => { console.log('You clicked double!') },
           className: 'weekend',
           style: {
-            background: '#d44db7'
+            background: '#aa5cb8            '
           }
         }
       },
@@ -255,7 +255,17 @@ const DTimeline = () => {
                        
                         {  group.img && <img src={group.img} class="photo" />}
                         <span className="title">{group.title}</span>
-                       { group.wallet && <span className="title">{group.wallet} $</span>}
+                       { group.wallet &&  
+                       
+                       
+                       <button className='btn'>
+  <span class="followers">&nbsp;{group.wallet}  $ </span>
+</button>
+
+                       
+                       
+                       
+                       }
                        
                         </div>
 

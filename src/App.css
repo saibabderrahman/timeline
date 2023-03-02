@@ -218,7 +218,8 @@ body{
 }
 
 .enAttente span:nth-of-type(1) {
-  background-color: #e29740;
+  background-color: #f9c56d
+  ;
 }
 
 .confirmées{
@@ -249,7 +250,7 @@ body{
 }
 
 .confirmées span:nth-of-type(1) {
-  background-color: #358146;
+  background-color: #8ece96;
 }
 .dispatch{
   position: absolute;
@@ -279,7 +280,8 @@ body{
 }
 
 .dispatch span:nth-of-type(1) {
-  background-color: #d44db7;
+  background-color: #aa5cb8
+  ;
 }
 
 
@@ -294,7 +296,7 @@ body{
     transform: scale(3);
   }
 }
-button {
+.button {
   font-family: PlusJakartaSans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Cantarell,Helvetica Neue,Ubuntu,sans-serif;
   font-size: 1rem;
   align-items: center;
@@ -308,11 +310,24 @@ button {
   background: #000000;
   margin: 0 2rem;
  }
+ .btn {
+  font-family: PlusJakartaSans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Cantarell,Helvetica Neue,Ubuntu,sans-serif;
+  font-size: 1rem;
+  align-items: center;
+  height: 48px;
+  border-radius: 0.4rem;
+  font-weight: 600;
+  padding: 0 1rem;
+  color: #eee4e4;
+  border: none;
+  box-shadow: 0 .5rem 1rem rgba(143, 142, 142, 0.15)!important;
+  background: #3595ed;
+border-radius: 4rem; }
  
  .followers {
   font-size: 0.8rem;
-  color: #7f7f7f;
-  margin-bottom: 2rem;
+  color: #e0d7d7;
+  margin-bottom: 1rem;
  }
  
  button:hover {

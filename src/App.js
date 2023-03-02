@@ -11,10 +11,10 @@ function App() {
   return (
     <div className="App">
  <div style={{margin:' 2rem  ' ,alignItems:"end"}}>
-<button> Ca TODAY 
-  <span class="followers">&nbsp;6613.0 $ </span>
+<button className='button'> CA TODAY 
+  <span class="followers">&nbsp;16613.0 $ </span>
 </button>
-<button> TRAJET
+<button className='button'> TRAJET
   <span class="followers">&nbsp;192 </span>
 </button>
  </div>

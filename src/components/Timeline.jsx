@@ -13,48 +13,63 @@ import Timeline, {
 import moment from 'moment'
 import Svg from './Svg'
 import img from './antonio-perdichizzi.webp'
+import img1 from './images.jpg'
+import img2 from './trump.jpg'
+import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container'
+
 
 
 const DTimeline = () => {
-    const groups = [{ id: 1, title: 'raid dj' ,    rightTitle: false,  height: 60},
-       { id: 2, title: `walide` ,    rightTitle: true, img:'' },
-      { id: 3, title: 'raid dj' ,    rightTitle: true,  },
-       { id: 4, title: 'walide ' ,    rightTitle: true, },
-       { id: 5, title: 'raid dj' ,    rightTitle: false, },
-        { id: 6, title: 'walide ' ,    rightTitle: true},
-       { id: 7, title: 'walide ' ,    rightTitle: true}, 
-        { id: 8, title: 'walide ' ,    rightTitle: false},
-        { id: 9, title: 'walide ' ,    rightTitle: true},
-        { id: 10, title: 'walide ' ,    rightTitle: true},
-        { id: 11, title: 'walide ' ,    rightTitle: false},
-        { id: 12, title: 'walide ' ,    rightTitle: false},
-        { id: 13, title: 'walide ' ,    rightTitle: false},
-        { id: 13, title: 'walide ' ,    rightTitle: true},
-        { id: 14, title: 'walide ' ,    rightTitle: true},
-        { id: 15, title: 'walide ' ,    rightTitle: true},
-        { id: 16, title: 'walide ' ,    rightTitle: true},
-        { id: 17, title: 'walide ' ,    rightTitle: true},
-        { id: 18, title: 'walide ' ,    rightTitle: true},
-        { id: 19, title: 'walide ' ,    rightTitle: true},
-        { id: 20, title: 'walide ' ,    rightTitle: true},
-        { id: 21, title: 'walide ' ,    rightTitle: true},
-        { id: 22, title: 'walide ' ,    rightTitle: true},
+    const groups = [
+      { id: 1, title: `reservations en attente` , enattente: true    ,rightTitle: null, height:200 ,},
+      { id: 2, title: 'reservations confirmées' , confirmées: true    ,rightTitle: null,  height:200 , },
+      { id: 3, title: 'reservations en course de dispatch ' ,   dispatch: true    ,   rightTitle: null ,  height:200},
+      { id: 4, title: 'raid dj' ,    rightTitle: true },
+       { id: 5, title: 'raid dj' ,    rightTitle: false,img:img , wallet: 1000},
+        { id: 6, title: 'walide ' ,    rightTitle: true,img:img , wallet: 634},
+       { id: 7, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000}, 
+        { id: 8, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
+        { id: 9, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 10, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 11, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
+        { id: 12, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
+        { id: 13, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
+        { id: 13, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 14, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 15, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 16, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 17, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 18, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 19, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 20, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000} ,
+        { id: 21, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+        { id: 22, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
 ]
 
   const items = [
-    {
+
+    
+    {  
       id: 1,
-      group: 1,
+      group: 5,
       title: 'additional information',
       start_time: moment(),
       end_time: moment().add(1, 'hour'),
       rightTitle: 'title in the right sidebar',
 
-      Color:"blue"
+    },
+    {
+      id: 10,
+      group: 6,
+      title: 'test',
+      start_time: moment(),
+      end_time: moment().add(1, 'hour'),
+      rightTitle: 'title in the right sidebar',
+
     },
     {
       id: 2,
-      group: 2,
+      group: 8,
       title: 'additional information',
       rightTitle: 'title in the right sidebar',
       start_time: moment().add(1, 'hour'),
@@ -62,7 +77,7 @@ const DTimeline = () => {
     },
     {
       id: 3,
-      group: 1,
+      group: 9,
       title: 'additional information',
       start_time: moment().add(2, 'hour'),
       end_time: moment().add(4, 'hour')
@@ -103,7 +118,7 @@ const DTimeline = () => {
       },
       {
         id: 6,
-        group: 1,
+        group: 7,
         title: 'additional information',
         start_time: moment().add(-5, 'hour'),
         end_time: moment().add(-2, 'hour'),
@@ -118,6 +133,74 @@ const DTimeline = () => {
           }
         }
       },
+      {
+        id: 7,
+        group: 1,
+        title: 'reservations en attente',
+        start_time: moment().add(-2, 'hour'),
+        end_time: moment().add(2, 'hour'),
+        itemProps: {
+          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
+          'data-custom-attribute': 'Random content',
+          'aria-hidden': true,
+          onDoubleClick: () => { console.log('You clicked double!') },
+          className: 'weekend',
+          style: {
+            background: '#e29740'
+          }
+        }
+      },
+      {
+        id: 10,
+        group: 1,
+        title: 'reservations en attente',
+        start_time: moment().add(3, 'hour'),
+        end_time: moment().add(6, 'hour'),
+        itemProps: {
+          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
+          'data-custom-attribute': 'Random content',
+          'aria-hidden': true,
+          onDoubleClick: () => { console.log('You clicked double!') },
+          className: 'weekend',
+          style: {
+            background: '#e29740'
+          }
+        }
+      },
+      {
+        id: 8,
+        group: 2,
+        title: 'reservations en attente',
+        start_time: moment().add(-5, 'hour'),
+        end_time: moment().add(2, 'hour'),
+        itemProps: {
+          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
+          'data-custom-attribute': 'Random content',
+          'aria-hidden': true,
+          onDoubleClick: () => { console.log('You clicked double!') },
+          className: 'weekend',
+          style: {
+            background: '#358146'
+          }
+        }
+      },
+      {
+        id: 9,
+        group: 3,
+        title: 'reservations en attente',
+        start_time: moment().add(-5, 'hour'),
+        end_time: moment().add(-2, 'hour'),
+        itemProps: {
+          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
+          'data-custom-attribute': 'Random content',
+          'aria-hidden': true,
+          onDoubleClick: () => { console.log('You clicked double!') },
+          className: 'weekend',
+          style: {
+            background: '#d44db7'
+          }
+        }
+      },
 
 
   ]
@@ -127,6 +210,7 @@ const DTimeline = () => {
     <div>
                 <Timeline
          traditionalZoom={false}
+         resizeDetector={containerResizeDetector}
          
 
          canMove={ true}
@@ -137,7 +221,7 @@ const DTimeline = () => {
          defaultTimeStart={moment().add(-12, 'hour')}
          defaultTimeEnd={moment().add(12, 'hour')}
          onDoubleClick=  {() => { console.log('You clicked double!') }}
-         sidebarWidth={200}
+         sidebarWidth={300}
          lineHeight={60}
          Height={50}
          timelineWidth={30}
@@ -147,21 +231,35 @@ const DTimeline = () => {
          groupRenderer = {({ group }) => {
           return (
             <>
-            <div className="custom-group">
-{group.rightTitle ? 
- <div class="container">
- <span></span>
-</div>:  <div class="con">
-     <span></span>
- </div>}
- <div className='userCart'>
+                   <div className="custom-group">
+                          {group.rightTitle ? 
+                                 <div class="container">
+                                 <span></span>
+                                </div>:  group.rightTitle == false ?<div class="con">
+                                     <span></span>
+                                 </div> :  group.rightTitle == null && group.enattente ?  <div class="enAttente">
+                                 <span></span>
+                                </div> : group.rightTitle == null && group.confirmées ?  <div class="confirmées">
+                                 <span></span>
+                                </div> :  group.rightTitle == null && group.dispatch ?  <div class="dispatch">
+                                 <span></span>
+                                </div> : <div class="con">
+                                 <span></span>
+                                </div>
+                           }
 
- <span className="title">{group.title}</span>
- <img src={img} class="photo" />
- </div>
 
 
-</div>
+                        <div className='userCart'>
+                       
+                        {  group.img && <img src={group.img} class="photo" />}
+                        <span className="title">{group.title}</span>
+                       { group.wallet && <span className="title">{group.wallet} $</span>}
+                       
+                        </div>
+
+
+                   </div>
                 
                 
                 

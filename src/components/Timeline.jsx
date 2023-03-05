@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import 'react-calendar-timeline/lib/Timeline.css'
 import Timeline, {
   TimelineMarkers,
@@ -11,375 +11,158 @@ import Timeline, {
 
 } from 'react-calendar-timeline'
 import moment from 'moment'
-import Svg from './Svg'
 import img from './antonio-perdichizzi.webp'
 import img1 from './images.jpg'
 import img2 from './trump.jpg'
 import containerResizeDetector from 'react-calendar-timeline/lib/resize-detector/container'
+import {group ,items} from './data'
+import itemRender from './itemRender'
+
 
 
 
 const DTimeline = () => {
-    const groups = [
-      { id: 1, title: `reservations en attente` , enattente: true    ,rightTitle: null, height:200 ,},
-      { id: 2, title: 'reservations confirmées' , confirmées: true    ,rightTitle: null,  height:200 , },
-      { id: 3, title: 'reservations en course de dispatch ' ,   dispatch: true    ,   rightTitle: null ,  height:200},
-      { id: 4, title: 'raid dj' ,    rightTitle: true ,img:img,wallet: 2000 },
-       { id: 5, title: 'raid dj' ,    rightTitle: false,img:img , wallet: 1000},
-        { id: 6, title: 'walide ' ,    rightTitle: true,img:img , wallet: 634},
-       { id: 7, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000}, 
-        { id: 8, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
-        { id: 9, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 10, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 11, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
-        { id: 12, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
-        { id: 13, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
-        { id: 13, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 14, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 15, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 16, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 17, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 18, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 19, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 20, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000} ,
-        { id: 21, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-        { id: 22, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-]
 
-  const items = [
+  
 
+
+
+  const [groups, setGroups] = useState(group)
+  const [allItems, setAllItems] = useState(items)
+
+  const addItemHandler = (item) => {
+    const newItem = {
+      id: 1 + allItems.reduce((max, value) => value.id > max ? value.id : max, 0),
+      group: item.group,
+      title: item.title,
+      className: item.status,
+      start_time: moment(new Date(item.start)),
+      end_time: moment(new Date(item.end)),
+    }
+    setAllItems([...allItems, newItem])
+  }
+
+  const handleItemMove = (itemId, dragTime, newGroupOrder) => {
+    console.log(itemId, dragTime, newGroupOrder)
+
+    const updatedItems = allItems.map((item) =>
     
-    {  
-      id: 1,
-      group: 5,
-      title: 'additional information',
-      start_time: moment(),
-      end_time: moment().add(1, 'hour'),
-      rightTitle: 'title in the right sidebar',
+      item.id === itemId
+        ? {
+            ...item,
+            title:'abderrahman',  
 
-    },
-    {
-      id: 10,
-      group: 6,
-      title: 'test',
-      start_time: moment(),
-      end_time: moment().add(1, 'hour'),
-      rightTitle: 'title in the right sidebar',
+            start_time: dragTime,
+            end_time: dragTime + ( item.end_time -item.start_time ),
+            group: newGroupOrder +1,
+          }
+        : item
+    )
+    console.log(updatedItems)
+    setAllItems(updatedItems)
+    console.log('Moved', itemId, dragTime, newGroupOrder)
+  }
 
-    },
-    {
-      id: 2,
-      group: 8,
-      title: 'additional information',
-      rightTitle: 'title in the right sidebar',
-      start_time: moment().add(1, 'hour'),
-      end_time: moment().add(6, 'hour')
-    },
-    {
-      id: 3,
-      group: 9,
-      title: 'additional information',
-      start_time: moment().add(2, 'hour'),
-      end_time: moment().add(4, 'hour')
-    },
-    {
-        id: 4,
-        group: 4,
-        title: 'onligne',
-        start_time: moment().add(-2, 'hour'),
-        end_time: moment().add(2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#d87981'
+  const handleItemResize = (itemId, time, edge) => {
+    const updatedItems = allItems.map((item) =>
+      item.id === itemId
+        ? {
+            ...item,
+            start_time: edge === 'left' ? time : item.start_time,
+            end_time: edge === 'left' ? item.end_time  : time,
           }
-        }
-      },
-      {
-        id: 5,
-        group: 5,
-        title: 'additional information',
-        start_time: moment().add(-5, 'hour'),
-        end_time: moment().add(2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#5d90c8            '
-          }
-        }
-      },
-      {
-        id: 6,
-        group: 7,
-        title: 'additional information',
-        start_time: moment().add(-5, 'hour'),
-        end_time: moment().add(-2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#6cc47b            '
-          }
-        }
-      },
-      {
-        id: 7,
-        group: 1,
-        title: 'reservations en attente',
-        start_time: moment().add(-2, 'hour'),
-        end_time: moment().add(2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#f9c56d'
-          }
-        }
-      },
-      {
-        id: 10,
-        group: 1,
-        title: 'reservations en attente',
-        start_time: moment().add(3, 'hour'),
-        end_time: moment().add(6, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#f9c56d '
-          }
-        }
-      },
-      {
-        id: 8,
-        group: 2,
-        title: 'reservations en attente',
-        start_time: moment().add(-5, 'hour'),
-        end_time: moment().add(2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#8ece96'
-          }
-        }
-      },
-      {
-        id: 9,
-        group: 3,
-        title: 'reservations en attente',
-        start_time: moment().add(-5, 'hour'),
-        end_time: moment().add(-2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#aa5cb8            '
-          }
-        }
-      },
+        : item
+    )
+    setAllItems(updatedItems)
+    console.log('Resized', itemId, time, edge)
+  }
 
-
-  ]
 
 
   return (
     <div>
                 <Timeline
-                style={{textAlign:"center"}}
-         traditionalZoom={false}
-         resizeDetector={containerResizeDetector}
-         
+                  style={{textAlign:"center"}}
+                  traditionalZoom={false}
+                  resizeDetector={containerResizeDetector}
+                  sidebarContent="drivers"
+                  canMove={true}
+                  canResize={'both'}
+                  groups={groups}
+                  items={allItems}
+                  defaultTimeStart={moment().add(-12, 'hour')}
+                  defaultTimeEnd={moment().add(12, 'hour')}
+                  onDoubleClick=  {() => { console.log('You clicked double!') }}
+                  sidebarWidth={300}
+                  lineHeight={60}
+                  stackItems
 
-         canMove={ true}
-         canResize={ true}
-         canChangeGroup={ true}
-         groups={groups}
-         items={items}
-         defaultTimeStart={moment().add(-12, 'hour')}
-         defaultTimeEnd={moment().add(12, 'hour')}
-         onDoubleClick=  {() => { console.log('You clicked double!') }}
-         sidebarWidth={300}
-         lineHeight={60}
-         Height={50}
-         timelineWidth={30}
-         minZoom={60}
-         maxZoom={60}
-         scrollRef={()=>5}
-         groupRenderer = {({ group }) => {
+                  Height={50}
+                  maxZoom={1.5 * 365.24 * 86400 * 1000}
+                  minZoom={1.24 * 86400 * 1000 * 7 * 3}
+                  showCursorLine
+                  fullUpdate
+                  itemTouchSendsClick={false}
+                  onItemMove={handleItemMove}
+                  onItemResize={handleItemResize}
+                  scrollRef={()=>5}
+                  groupRenderer = {({ group }) => {
           return (
             <>
                    <div className="custom-group">
                           {group.rightTitle ? 
-                                 <div class="container">
+                                 <div className="container">
                                  <span></span>
-                                </div>:  group.rightTitle == false ?<div class="con">
+                                </div>:  group.rightTitle == false ?<div className="con">
                                      <span></span>
-                                 </div> :  group.rightTitle == null && group.enattente ?  <div class="enAttente">
+                                 </div> :  group.rightTitle == null && group.enattente ?  <div className="enAttente">
                                  <span></span>
-                                </div> : group.rightTitle == null && group.confirmées ?  <div class="confirmées">
+                                </div> : group.rightTitle == null && group.confirmées ?  <div className="confirmées">
                                  <span></span>
-                                </div> :  group.rightTitle == null && group.dispatch ?  <div class="dispatch">
+                                </div> :  group.rightTitle == null && group.dispatch ?  <div className="dispatch">
                                  <span></span>
-                                </div> : <div class="con">
+                                </div> : <div className="con">
                                  <span></span>
                                 </div>
                            }
-
-
-
                         <div className='userCart'>
-                       
-                        {  group.img && <img src={group.img} class="photo" />}
+                        {  group.img && <img src={group.img} className="photo" />}
                         <span className="title">{group.title}</span>
                        { group.wallet &&  
-                       
-                       
-                       <button className='btn'>
-  <span class="followers">&nbsp;{group.wallet}  $ </span>
-</button>
-
-                       
-                       
-                       
+                              <button className='btn'>
+                               <span className="followers">&nbsp;{group.wallet}  $ </span>
+                             </button>
                        }
-                       
                         </div>
-
-
                    </div>
-                
-                
-                
-
-            
-            
-            
             </>
-
-
-
-
-    
-          
-
-
-
-
-
-
-
-
-
-
           )
         }}
-        
-        
-
-
-
-
     >
         <TimelineHeaders>
           
-              <DateHeader unit="hour" height={60} 
-                         // style={{ background: 'green' }}
-                 
-               
-               />
+              <DateHeader unit="hour" height={60}  // style={{ background: 'green' }}
+          />
+
+
      
          </TimelineHeaders>
-
-
         <TimelineMarkers>
                 <TodayMarker >
                                   {({ styles, date }) => {
-                         const customStyles = {
-                           ...styles,
-                           backgroundColor: 'red',
-                           width: '4px'
-                         }
-                         return <div style={customStyles}  />
+  const customStyles = {
+    ...styles,
+    backgroundColor: 'red',
+    width: '4px'
+  }
+  return <div style={customStyles}  />
                   }}
-
                 </TodayMarker>
        </TimelineMarkers>
 
       </Timeline>
-
-
-
     </div>
   )
 }
 
 export default DTimeline
-/*
-
-<div class="card">
-  <div class="card-top-part">
-    <div class="left-part">
-      <div class="user-name">
-        <p class="name">Jane Doe</p>
-        <p class="role"> Admin </p>
-      </div>
-      <div class="user-position">
-        <p class="position">
-        Front-End Developer
-      </p>
-      </div>
-    </div>
-    <div class="right-part">
-      <div class="user-photo">
-        <img src="https://randomuser.me/api/portraits/women/79.jpg" class="photo">
-      </div>
-    </div>
-  </div>
-  <div class="card-bottom-part">
-    <div class="bottom-part">
-      <a href="mailto: example@example.com" class="link">
-        <span class="icon"> 
-          <svg viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg" data-name="20" id="_20">
-            <path transform="translate(1.25 3.75)" d="M16.25,12.5h-15A1.252,1.252,0,0,1,0,11.25v-10A1.252,1.252,0,0,1,1.25,0h15A1.251,1.251,0,0,1,17.5,1.25v10A1.251,1.251,0,0,1,16.25,12.5ZM1.25,1.819V11.25h15V1.819L9.106,6.763a.626.626,0,0,1-.713,0ZM2.625,1.25,8.75,5.487,14.875,1.25Z" id="Fill"></path>
-          </svg>
-        </span>
-          Email
-      </a>
-    </div>
-    <div class="bottom-part">
-      <a href="tel: 0123456789" class="link">
-        <span class="icon"> 
-          <svg viewBox="0 0 20 20" height="20" width="20" xmlns="http://www.w3.org/2000/svg" data-name="20" id="_20">
-            <path transform="translate(1.869 1.875)" d="M14.381,16.25h-.106C2,15.544.249,5.179.006,2.019A1.874,1.874,0,0,1,1.731,0H5.175A1.243,1.243,0,0,1,6.337.787l.95,2.337a1.247,1.247,0,0,1-.275,1.35L5.681,5.818a5.875,5.875,0,0,0,4.738,4.75l1.356-1.344a1.25,1.25,0,0,1,1.356-.257l2.356.944a1.245,1.245,0,0,1,.769,1.163v3.3A1.877,1.877,0,0,1,14.381,16.25Zm-12.5-15a.625.625,0,0,0-.625.625v.05C1.545,5.648,3.4,14.375,14.343,15h.038a.625.625,0,0,0,.625-.589V11.075l-2.356-.944-1.794,1.781-.3-.038A6.733,6.733,0,0,1,5.429,8.553,8.171,8.171,0,0,1,4.381,5.7l-.038-.3L6.118,3.606,5.181,1.25Z" id="Fill"></path>
-          </svg>
-        </span>
-          Phone
-      </a>
-    </div>
-  </div>
-</div>
-*/

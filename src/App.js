@@ -12,10 +12,10 @@ function App() {
     <div className="App">
  <div style={{margin:' 2rem  ' ,alignItems:"end"}}>
 <button className='button'> CA TODAY 
-  <span class="followers">&nbsp;16613.0 $ </span>
+  <span className="followers">&nbsp;16613.0 $ </span>
 </button>
 <button className='button'> TRAJET
-  <span class="followers">&nbsp;192 </span>
+  <span className="followers">&nbsp;192 </span>
 </button>
  </div>
       <DTimeline />

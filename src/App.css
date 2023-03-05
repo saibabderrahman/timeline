@@ -333,7 +333,11 @@ border-radius: 4rem; }
  button:hover {
   background: #2b2a2a;
  }
-
+.rct-items div {
+  border: none !important;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
  
 
 

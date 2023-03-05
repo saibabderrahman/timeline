@@ -196,9 +196,9 @@
 
    
   export const group = [
-    { id: 1, title: `reservations en attente` , enattente: true    ,rightTitle: null, height:200 ,},
-    { id: 2, title: 'reservations confirmées' , confirmées: true    ,rightTitle: null,  height:200 , },
-    { id: 3, title: 'reservations en course de dispatch ' ,   dispatch: true    ,   rightTitle: null ,  height:200},
+    { id: 1, title: `reservations en attente` , enattente: true    ,rightTitle: null, },
+    { id: 2, title: 'reservations confirmées' , confirmées: true    ,rightTitle: null, },
+    { id: 3, title: 'reservations en course de dispatch ' ,   dispatch: true    ,   rightTitle: null },
     { id: 4, title: 'raid dj' ,    rightTitle: true ,img:img,wallet: 2000 },
      { id: 5, title: 'raid dj' ,    rightTitle: false,img:img , wallet: 1000},
       { id: 6, title: 'walide ' ,    rightTitle: true,img:img , wallet: 634},

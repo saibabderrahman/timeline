@@ -1,55 +1,68 @@
-import React from 'react'
-import './ripple.css'
 
-const itemRender = ({item, itemContext, getItemProps, getResizeProps}) => {
-  const {left: leftResizeProps, right: rightResizeProps} = getResizeProps()
-  const backgroundColor = itemContext.selected
-    ? itemContext.dragging
-      ? 'red'
-      : item.selectedBgColor
-    : item.bgColor
-  const borderColor = itemContext.resizing ? 'red' : item.color
+import React from 'react';
+
+import karhoo from './karhoo.png'
+import wallet from './wallet.png'
+import cash from './cash.png'
+import company from './company.png'
+import cart from './abourd.png'
+const itemRenderer = ({ item, timelineContext, itemContext, getItemProps, getResizeProps }) => {
+
+
+
+  const { left: leftResizeProps, right: rightResizeProps } = getResizeProps();
   return (
     <div
       {...getItemProps({
         style: {
-          backgroundColor,
-          color: item.color,
-          borderColor,
-          border: itemContext.selected ? 'dashed 1px rgba(0,0,0,0.3)' : 'none',
-          borderRadius: 4,
-          boxShadow: `0 1px 5px 0 rgba(0, 0, 0, 0.2),
-                     0 2px 2px 0 rgba(0, 0, 0, 0.14),
-                     0 3px 1px -2px rgba(0, 0, 0, 0.12)`
+          display:'flex', alignItem:"start",justifyContent:"start",
+          backgroundColor:item.id_driver=="B_1" ? '#ffeed2 '  : item.id_driver=="B_2" ?  "#ddf2e2"  :   item.id_driver=="B_3" ?  "#fae9fb"  :  "#e0edff"  ,
+          color: item.id_driver=="B_1" ? '#e8ac51 ' : item.id_driver=="B_2" ?  "#5fca75"  :   item.id_driver=="B_3" ?  "#b76ec7"  :  "#357fcc"     ,
         },
-        onMouseDown: () => {
-          console.log('on item click', item)
-        }
       })}
     >
       {itemContext.useResizeHandle ? <div {...leftResizeProps} /> : null}
 
       <div
-        className="ripple"
+      key={itemContext.title}
         style={{
           height: itemContext.dimensions.height,
-          overflow: 'hidden',
+          overflow: "hidden",
           paddingLeft: 3,
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-          fontSize: '1rem',
-          marginLeft: '1rem'
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap"
         }}
       >
-        {itemContext.title}
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+           {item.is_karhoo == 1 && <img style={{height:'2.5rem' }} src={karhoo}  /> } 
+
+
+
+           {
+            item.payment_method == 1 ? 
+            <img style={{width:'2rem' ,marginLeft:'3rem',marginTop:"0.5rem",height:"1.5rem" }} src={cash}  />
+            :     item.payment_method == 2 ?
+            <img style={{width:'2rem' ,marginLeft:'3rem',marginTop:"0.5rem",height:"1.5rem" }} src={wallet}  />
+            :     item.payment_method == 3 ?
+            <img style={{width:'2rem' ,marginLeft:'3rem',marginTop:"0.5rem",height:"1.5rem" }} src={cart}  />
+            :     item.payment_method == 4 ?
+            <img style={{width:'2rem' ,marginLeft:'3rem' ,marginTop:"0.5rem",height:"1.5rem" }} src={company}  />
+            :
+            <> </>
+
+           }
+        </div>
       </div>
 
       {itemContext.useResizeHandle ? <div {...rightResizeProps} /> : null}
-    </div>
-  )
-}
 
-export default itemRender
+   
+    </div>
+  );
+};
+
+
+export default itemRenderer
 
 
 

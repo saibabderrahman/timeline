@@ -1,194 +1,155 @@
   
   import moment from 'moment'
-  import img from './antonio-perdichizzi.webp'
-  import img1 from './images.jpg'
-  import img2 from './trump.jpg'
   
   
   export const items = [
+    { 
+       id: 81,
+      id_driver: "B_3",
+      title: 'additional information',
+      date_start: moment().add(-20, 'hour'),
+      date_end :moment().add(+70, 'hour'),
+      is_karhoo: 0,
+      rightTitle: 'title in the right sidebar',
+      className: 'assign',
+      selectedBgColor: 'rgba(225, 166, 244, 1)',
+      payment_method:1,
+    },
+    {
+      id: 82,
+      id_driver: "B_1",
+      title: 'additional information',
+      date_start: moment().add(-300, 'hour'),
+      date_end :moment().add(-10, 'hour'),
+      is_karhoo: 0,
+      rightTitle: 'title in the right sidebar',
+      className: 'assign',
+      selectedBgColor: 'rgba(225, 166, 244, 1)',
+      payment_method:2,
+
+  
+
+    },
+    {
+      id: 83,
+      id_driver: 1,
+      title: 'additional information',
+      date_start: moment(),
+      date_end :moment().add(200, 'hour'),
+      is_karhoo: 0,
+      rightTitle: 'title in the right sidebar',
+      className: 'assign',
+      selectedBgColor: 'rgba(225, 166, 244, 1)',
+      payment_method:3,
+
+  
+  
+    },
+    {
+      id: 84,
+      id_driver: "B_3",
+      title: 'additional information',
+      date_start: moment().add(-5, 'hour'),
+      date_end :moment().add(-150, 'hour'),
+      is_karhoo: 0,
+      rightTitle: 'title in the right sidebar',
+      className: 'assign',
+      selectedBgColor: 'rgba(225, 166, 244, 1)',
+      payment_method:4,
+
+  
+    },
+    {
+      id: 85,
+      id_driver: 2,
+      title: 'additional information',
+      date_start: moment().add(-3, 'hour'),
+      date_end :moment().add(200, 'hour'),
+      is_karhoo: 1,
+      rightTitle: 'title in the right sidebar',
+      className: 'assign',
+      selectedBgColor: 'rgba(225, 166, 244, 1)',
+      payment_method:5,
 
     
-    {  
-      id: 0,
-      group: 5,
-      title: 'additional information',
-      start_time: moment(),
-      end_time: moment().add(1, 'hour'),
-      rightTitle: 'title in the right sidebar',
-      className: 'assign',
-
-      selectedBgColor: 'rgba(225, 166, 244, 1)',
-  
-      className: 'pending',
-  
-
-
-    },
-    {
-      id:1,
-      group: 6,
-      title: 'test',
-      start_time: moment(),
-      end_time: moment().add(1, 'hour'),
-      rightTitle: 'title in the right sidebar',
-      className: 'assign',
-
-      selectedBgColor: 'rgba(225, 166, 244, 1)',
-  
-      className: 'pending',
-  
-
-    },
-    {
-      id: 2,
-      group: 8,
-      title: 'additional information',
-      rightTitle: 'title in the right sidebar',
-      start_time: moment().add(1, 'hour'),
-      end_time: moment().add(6, 'hour'),
-      className: 'assign',
-
-      selectedBgColor: 'rgba(225, 166, 244, 1)',
-  
-      className: 'pending',
-  
-    },
-    {
-      id: 3,
-      group: 9,
-      title: 'additional information',
-      start_time: moment().add(2, 'hour'),
-      end_time: moment().add(4, 'hour'),    className: 'assign',
-
-      selectedBgColor: 'rgba(225, 166, 244, 1)',
-  
-      className: 'pending',
-  
-    },
-    {
-        id: 4,
-        group: 4,
-        title: 'onligne',
-        start_time: moment().add(-2, 'hour'),
-        end_time: moment().add(2, 'hour'),
-     //  itemProps: {
-     //    // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-     //    'data-custom-attribute': 'Random content',
-     //    'aria-hidden': true,
-     //    onDoubleClick: () => { console.log('You clicked double!') },
-     //    className: 'weekend',
-     //    style: {
-     //      background: '#d87981'
-     //    }
-     //  },
+      },
+      {
+        id: 86,
+        id_driver: "2",
+        title: 'additional information',
+        date_start: moment().add(3, 'hour'),
+        date_end :moment().add(50, 'hour'),
+        is_karhoo: 1,
+        rightTitle: 'title in the right sidebar',
         className: 'assign',
-
         selectedBgColor: 'rgba(225, 166, 244, 1)',
-    
-        className: 'pending',
-    
+         payment_method:5,
+
       },
       {
-        id: 5,
-        group: 5,
+        id: 87,
+        id_driver: "B_1",
         title: 'additional information',
-        start_time: moment().add(-5, 'hour'),
-        end_time: moment().add(2, 'hour'),
-      //  itemProps: {
-      //    // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-      //    'data-custom-attribute': 'Random content',
-      //    'aria-hidden': true,
-      //    onDoubleClick: () => { console.log('You clicked double!') },
-      //    className: 'weekend',
-      //    style: {
-      //      background: '#5d90c8            '
-      //    }
-      //  }
+        date_start: moment().add(-3, 'hour'),
+        date_end :moment().add(100, 'hour'),
+        is_karhoo: 0,
+        rightTitle: 'title in the right sidebar',
+        className: 'assign',
+        selectedBgColor: 'rgba(225, 166, 244, 1)',
+        payment_method:2,
+
       },
       {
-        id: 6,
-        group: 7,
+        id: 88,
+        id_driver: "B_3",
         title: 'additional information',
-        start_time: moment().add(-5, 'hour'),
-        end_time: moment().add(-2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#6cc47b            '
-          }
-        }
+        date_start: moment().add(-20, 'hour'),
+        date_end :moment().add(48, 'hour'),
+        is_karhoo: 1,
+        rightTitle: 'title in the right sidebar',
+        className: 'assign',
+        selectedBgColor: 'rgba(225, 166, 244, 1)',
+        payment_method:5,
+
       },
       {
-        id: 7,
-        group: 1,
-        title: 'reservations en attente',
-        start_time: moment().add(-2, 'hour'),
-        end_time: moment().add(2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#ffeed2', color:'#e8ac51 '
-          }
-        }
+        id: 89,
+        id_driver: 1,
+        title: 'additional information',
+        date_start: moment(),
+        date_end :moment().add(25, 'hour'),
+        is_karhoo: 0,
+        rightTitle: 'title in the right sidebar',
+        className: 'assign',
+        selectedBgColor: 'rgba(225, 166, 244, 1)',
+         payment_method:3,
+
       },
       {
-        id:8,
-        group: 1,
-        title: 'reservations en attente',
-        start_time: moment().add(3, 'hour'),
-        end_time: moment().add(6, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#f9c56d '
-          }
-        }
+        id:90,
+        id_driver: "B_3",
+        title: 'additional information',
+        date_start: moment().add(-15, 'hour'),
+        date_end :moment().add(15, 'hour'),
+        is_karhoo: 0,
+        rightTitle: 'title in the right sidebar',
+        className: 'assign',
+        selectedBgColor: 'rgba(225, 166, 244, 1)',
+      payment_method:3,
+
       },
       {
-        id:9,
-        group: 2,
-        title: 'reservations en attente',
-        start_time: moment().add(-5, 'hour'),
-        end_time: moment().add(2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#8ece96'
-          }
-        }
-      },
-      {
-        id: 10,
-        group: 3,
-        title: 'reservations en attente',
-        start_time: moment().add(-5, 'hour'),
-        end_time: moment().add(-2, 'hour'),
-        itemProps: {
-          // these optional attributes are passed to the root <div /> of each item as <div {...itemProps} />
-          'data-custom-attribute': 'Random content',
-          'aria-hidden': true,
-          onDoubleClick: () => { console.log('You clicked double!') },
-          className: 'weekend',
-          style: {
-            background: '#aa5cb8            '
-          }
-        }
+        id: 91,
+        id_driver: "B_3",
+        title: 'additional information',
+        date_start: moment().add(-5, 'hour'),
+        date_end :moment().add(1, 'hour'),
+        is_karhoo: 0,
+        rightTitle: 'title in the right sidebar',
+        className: 'assign',
+        selectedBgColor: 'rgba(225, 166, 244, 1)',
+      payment_method:3,
+
       },
 
 
@@ -196,27 +157,7 @@
 
    
   export const group = [
-    { id: 1, title: `reservations en attente` , enattente: true    ,rightTitle: null, },
-    { id: 2, title: 'reservations confirmées' , confirmées: true    ,rightTitle: null, },
-    { id: 3, title: 'reservations en course de dispatch ' ,   dispatch: true    ,   rightTitle: null },
-    { id: 4, title: 'raid dj' ,    rightTitle: true ,img:img,wallet: 2000 },
-     { id: 5, title: 'raid dj' ,    rightTitle: false,img:img , wallet: 1000},
-      { id: 6, title: 'walide ' ,    rightTitle: true,img:img , wallet: 634},
-     { id: 7, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000}, 
-      { id: 8, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
-      { id: 9, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 10, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 11, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
-      { id: 12, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
-      { id: 13, title: 'walide ' ,    rightTitle: false ,img:img , wallet: 8000},
-      { id: 30, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 14, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 15, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 16, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 17, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 18, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 19, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 20, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000} ,
-      { id: 21, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
-      { id: 22, title: 'walide ' ,    rightTitle: true ,img:img , wallet: 8000},
+    { id:"B_1",fullName: `reservations en attentes de dispatch ` , enattente: true    ,rightTitle: null, },
+    { id:"B_3",fullName: 'reservations en cours de dispatch ' ,   dispatch: true    ,   rightTitle: null },
+
 ]

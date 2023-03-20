@@ -19,6 +19,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -34,14 +35,24 @@ const style = {
 const DTimeline = () => {
   const [groups, setGroups] = useState(group);
   const [allItems, setAllItems] = useState([]);
-  const [buttonName, setButtonName] = useState("day");
+  const [buttonName, setButtonName] = useState("hour");
   const [open, setOpen] = React.useState(false);
   const [Item, setItem] = useState({});
   const [Value, setValue] = useState(100);
+  const [Dark, setDark] = useState(false)
+  const startOfDay = moment().startOf('day').format("yyyy-MM-DD HH:mm");
+
+  function handleLightClick() {
+    setDark(false);
+  }
+
+  function handleDarkClick() {
+    setDark(true);
+  }
+
   const handleOpen = (item) => {
     setOpen(true);
     setItem(allItems.find((e) => e.id === item));
-    console.log(Item);
   };
   const handleClose = () => setOpen(false);
 
@@ -54,12 +65,11 @@ const DTimeline = () => {
   });
 
   useEffect(() => {
-    socket.emit("getDrivers", () => null);
+    socket.emit("getDrivers",{ startOfDay, end: moment(startOfDay).endOf('day').format("yyyy-MM-DD HH:mm")});
     socket.emit("getAllBooking", () => null);
   }, []);
 
   socket.on("BookingTimeline", async (booking) => {
-    console.log(booking)
     await booking.map((item) => {
       item.date_start = moment(new Date(item.date_start));
       item.date_end = moment(new Date(item.date_end));
@@ -68,7 +78,13 @@ const DTimeline = () => {
   });
 
   socket.on("driverTimeLine", async (data) => {
-    console.log(data)
+    data = await Promise.all(data.map(async (driver) => {
+      driver.netOFDAy = 0;
+      await Promise.all(driver.bookings.map(async (item) => {
+        driver.netOFDAy += item.net_driver;
+      }));
+      return driver;
+    }));
     setGroups([...group, ...data]);
   });
 
@@ -146,10 +162,6 @@ const DTimeline = () => {
         <div style={{ padding: "1rem" }}>
           <a href="#" className="bt" onClick={() => handleButtonClick("day")}>
             {" "}
-            month
-          </a>
-          <a href="#" className="bt" onClick={() => handleButtonClick("day")}>
-            {" "}
             day
           </a>
           <a href="#" className="bt" onClick={() => handleButtonClick("hour")}>
@@ -165,26 +177,40 @@ const DTimeline = () => {
           </button>
           <button className="button">
             {" "}
-            TRAJET
+            TRAJET(s)
             <span className="followers">&nbsp;192 </span>
           </button>
         </div>
+        <div>
+        <div style={{ padding: "1rem" }}>
+          <a href="#" className="bt" onClick={handleDarkClick}>
+            {" "}
+            Dark
+          </a>
+          <a href="#" className="bt" onClick={handleLightClick}>
+            {" "}
+            light
+          </a>
+        </div>
+
+        </div>
       </div>
 
-      <div style={{ display: `${buttonName == "day" ? "none" : "block"}` }}>
+      <div style={{ display: `${buttonName == "day" ? "none" : buttonName == "month" ? "none" : "block"}` }}>
         <Timeline
-       
-          style={{ textAlign: "center" }}
-          traditionalZoom={false}
+          style={{ textAlign: "center",backgroundColor:Dark ? "#0e1726" : "" ,color:Dark ? "#fff" : ""}}       
+          traditionalZoom={false} 
           resizeDetector={containerResizeDetector}
           canMove={true}
+          onItemContextMenu={(itemId, e, time)=>{
+            console.log(itemId)
+          }}
+   
           canResize={"both"}
           groups={groups}
           minZoom={24 * 60 * 60 * 1000}
-          maxZoom={
-            buttonName == "hour" ? 60 * 60 * 1000 : 30 * 24 * 60 * 60 * 1000
-          }
-          items={allItems}
+          maxZoom={60 * 60 * 1000}
+          items={items}
           defaultTimeStart={moment().add(-6, "hour")}
           defaultTimeEnd={moment().add(6, "hour")}
           onItemClick={(itemId, e, time) => handleOpen(itemId)}
@@ -194,31 +220,25 @@ const DTimeline = () => {
           stackItems
           keys={keys}
           itemRenderer={itemRenderer}
-          timeSteps={{
-            minute: 15,
-            hour: buttonName == "day" ? 6 : 1,
-            day: 1,
-            month: 1,
-            year: 12,
-          }}
+          timeSteps={{ minute: 15, hour: buttonName == "day" ? 6 : 1, day: 1, month: 1, year: 12,}}
           Height={50}
           itemTouchSendsClick={false}
           onItemMove={handleItemMove}
           onItemResize={handleItemResize}
           groupRenderer={groupRender}
         >
-          <TimelineHeaders unit="day">
-            <SidebarHeader>
+          <TimelineHeaders  >
+            <SidebarHeader   >
               {({ getRootProps }) => {
                 return (
                   <div {...getRootProps()}>
-                               <div className="range">
+                               <div className="range" style={{backgroundColor:Dark ? "#0e1726" : "fff"}}>
                       <div className="sliderValue">
                         <span>{Value}</span>
                       </div>
                       <div className="field">
                         <div
-                          class="value left"
+                          className="value left"
                           onClick={() => {
                             setValue((prev) => Math.max(0, prev - 100));
                           }}
@@ -230,7 +250,7 @@ const DTimeline = () => {
                           min="0"
                           max="200"
                           value={Value}
-                          steps="1"
+                          steps="100"
                           onChange={(e) => setValue(e.target.value)}
                         />
                         <div
@@ -246,25 +266,9 @@ const DTimeline = () => {
                   </div>
                 );
               }}
-            </SidebarHeader>
-
-            {buttonName == "month" ? (
-              <>
-                <DateHeader unit="year" height={60} />
-                <DateHeader unit="month" height={60} />
-              </>
-            ) : buttonName == "day" ? (
-              <>
-                <DateHeader unit="month" height={60} />
-                <DateHeader unit="day" height={60} />
-                <DateHeader unit="hour" height={60} />
-              </>
-            ) : (
-              <>
-                <DateHeader unit="hour" height={60} />
-                <DateHeader unit="minute" height={60} />
-              </>
-            )}
+            </SidebarHeader >
+                <DateHeader  unit="hour" height={60} className={`${Dark ?'div' : "null"}`}  />
+                <DateHeader unit="minute" height={60}   className={`${Dark ?'div' : "null"}`} />
           </TimelineHeaders>
           <TimelineMarkers>
             <TodayMarker>
@@ -282,31 +286,17 @@ const DTimeline = () => {
         </Timeline>
       </div>
 
-      <div style={{ display: `${buttonName == "hour" ? "none" : "block"}` }}>
+      <div style={{ display: `${buttonName == "hour" ? "none" : buttonName == "month" ? "none" : "block" }` }}>
         <Timeline
           traditionalZoom={false}
           resizeDetector={containerResizeDetector}
           canMove={true}
           canResize={"both"}
-          style={{ textAlign: "center" }}
+          style={{ textAlign: "center",backgroundColor:Dark ? "#0e1726" : "" ,color:Dark ? "#fff" : ""}} 
           groups={groups}
           minZoom={24 * 60 * 60 * 1000}
-          maxZoom={
-            buttonName == "hour" ? 60 * 60 * 1000 : 30 * 24 * 60 * 60 * 1000
-          }
+          maxZoom={30 * 24 * 60 * 60 * 1000}
           onItemClick={(itemId, e, time) => handleOpen(itemId)}
-          sidebarContent={
-            <div class="switch-holder">
-              <div class="switch-label">
-                <i class="fa fa-bluetooth-b"></i>
-                <span>zoom by</span>
-              </div>
-              <div class="switch-toggle">
-                <input type="checkbox" id="bluetooth" />
-                <label for="bluetooth"></label>
-              </div>
-            </div>
-          }
           items={items}
           defaultTimeStart={moment().add(-5, "day")}
           defaultTimeEnd={moment().add(5, "day")}
@@ -316,25 +306,18 @@ const DTimeline = () => {
           stackItems
           keys={keys}
           itemRenderer={itemRenderer}
-          timeSteps={{
-            minute: 15,
-            hour: buttonName == "day" ? 6 : 1,
-            day: 1,
-            month: 1,
-            year: 12,
-          }}
-          Height={50}
+          timeSteps={{minute: 15,hour: buttonName == "day" ? 6 : 1,day: 1,month: 1,year: 12, }}
           itemTouchSendsClick={false}
           onItemMove={handleItemMove}
           onItemResize={handleItemResize}
           groupRenderer={groupRender}
         >
-          <TimelineHeaders unit="day">
+          <TimelineHeaders>
             <SidebarHeader>
               {({ getRootProps }) => {
                 return (
                   <div {...getRootProps()}>
-                    <div className="range">
+                    <div className="range" style={{backgroundColor:Dark ? "#0e1726" : "fff"}}>
                       <div className="sliderValue">
                         <span>{Value}</span>
                       </div>
@@ -352,7 +335,7 @@ const DTimeline = () => {
                           min="0"
                           max="200"
                           value={Value}
-                          steps="1"
+                          steps="100"
                           onChange={(e) => setValue(e.target.value)}
                         />
                         <div
@@ -370,22 +353,11 @@ const DTimeline = () => {
               }}
             </SidebarHeader>
 
-            {buttonName == "month" ? (
-              <>
-                <DateHeader unit="year" height={60} />
-                <DateHeader unit="month" height={60} />
-              </>
-            ) : buttonName == "day" ? (
-              <>
-                <DateHeader unit="day" height={60} />
-                <DateHeader unit="hour" height={60} />
-              </>
-            ) : (
-              <>
-                <DateHeader unit="hour" height={60} />
-                <DateHeader unit="minute" height={60} />
-              </>
-            )}
+     
+     
+                <DateHeader unit="day" height={60} className={`${Dark ?'div' : "null"}`} />
+                <DateHeader unit="hour" height={60}  className={`${Dark ?'div' : "null"}`}/>
+      
           </TimelineHeaders>
           <TimelineMarkers>
             <TodayMarker>
@@ -402,6 +374,7 @@ const DTimeline = () => {
           </TimelineMarkers>
         </Timeline>
       </div>
+
       <div>
         <Modal
           open={open}

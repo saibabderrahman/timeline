@@ -10,7 +10,7 @@ function stringToColor(string) {
        let i;
      
        /* eslint-disable no-bitwise */
-       for (i = 0; i < string.length; i += 1) {
+       for (i = 0; i < string?.length; i += 1) {
          hash = string.charCodeAt(i) + ((hash << 5) - hash);
        }
      
@@ -33,6 +33,7 @@ function stringToColor(string) {
        };
      }
 const groupRender = ({ group }) => {
+  console.log(group)
     return (
       <>
              <div key={group.id} className="custom-group">
@@ -52,12 +53,12 @@ const groupRender = ({ group }) => {
                           </div>
                      }
                   <div className='userCart'>
-                  { (group.id !== 'B_1' && group.id !== 'B_2' && group.id !== 'B_3') && <Avatar {...stringAvatar(group.fullName)} /> }
+                  { (group.id !== 'B_1' && group.id !== 'B_2' && group.id !== 'B_3') && <></> }
 
                   <span className="title">{group.first_name || group.fullName}</span>
                  { group.wallet &&  
                         <button className='btn'>
-                         <span className="followers">&nbsp;{group.wallet}  $ </span>
+                         <span className="followers">&nbsp;{group.netOFDAy}  $ </span>
                        </button>
                  }
                   </div>
